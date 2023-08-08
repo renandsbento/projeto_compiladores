@@ -1,0 +1,1 @@
+java org.antlr.v4.Tool target\IsiLang.g4 -package antlr4.target -o ./src/antlr4
