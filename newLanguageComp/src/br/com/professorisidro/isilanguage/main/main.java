@@ -20,6 +20,7 @@ public class main {
 			parser = new IsiLangParser(tokenStream);
 			System.out.println("Realizando avaliacao!");
 			parser.prog();
+			System.out.println("Avaliacao realizada!");
 		}
 		catch(Exception ex) {
 			System.err.println("Erro " + ex.getMessage());

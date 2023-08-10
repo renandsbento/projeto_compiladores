@@ -1,7 +1,19 @@
 programa
+	declare a, b, c;
 	leia(a);
 	leia(b);
+	leia(c);
 	escreva(a);
 	escreva(b);
+	escreva(c);
+	
+	if(a < b){
+		leia(a);
+		escreva(a);
+	}
+	else{
+		leia(b);
+		escreva(b);
+	}
 
 fimprog;

@@ -28,6 +28,16 @@ public interface IsiLangListener extends ParseTreeListener {
 	 */
 	void exitTermo(@NotNull IsiLangParser.TermoContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link IsiLangParser#cmdIf}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmdIf(@NotNull IsiLangParser.CmdIfContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link IsiLangParser#cmdIf}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmdIf(@NotNull IsiLangParser.CmdIfContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link IsiLangParser#cmdescrita}.
 	 * @param ctx the parse tree
 	 */
@@ -67,6 +77,16 @@ public interface IsiLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCmd(@NotNull IsiLangParser.CmdContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link IsiLangParser#cmddeclare}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmddeclare(@NotNull IsiLangParser.CmddeclareContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link IsiLangParser#cmddeclare}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmddeclare(@NotNull IsiLangParser.CmddeclareContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link IsiLangParser#prog}.
 	 * @param ctx the parse tree

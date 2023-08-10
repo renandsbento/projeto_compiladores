@@ -40,6 +40,18 @@ public class IsiLangBaseListener implements IsiLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCmdIf(@NotNull IsiLangParser.CmdIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCmdIf(@NotNull IsiLangParser.CmdIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCmdescrita(@NotNull IsiLangParser.CmdescritaContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -83,6 +95,18 @@ public class IsiLangBaseListener implements IsiLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCmd(@NotNull IsiLangParser.CmdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCmddeclare(@NotNull IsiLangParser.CmddeclareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCmddeclare(@NotNull IsiLangParser.CmddeclareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
