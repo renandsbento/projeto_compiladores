@@ -12,7 +12,7 @@ bloco		: (cmd)+
 cmd			: cmdleitura | cmdescrita | cmdattrib | cmdIf | cmddeclare
 			;
 
-cmddeclare	: 'declare' ID ( VG ID )* SC {System.out.println("reconheci um comando declare");}
+cmddeclare	: 'declare' ID ( VG ID )* SC {System.out.println("reconheci declare");}
 			;
 
 cmdleitura	: 'leia' AP ID FP SC
@@ -73,6 +73,12 @@ TEXTO		: ([0-9] | [a-z] | [A-Z])+
 			;
 		
 cmdIf		: 'if' AP termo Op_rel termo FP AC bloco FC ('else' AC bloco FC )?
+			;
+			
+cmdFor		: 'for' AP termo SC termo SC termo FP AC bloco FC 
+			;
+
+cmdWhile	: 'while' AP termo FP AC bloco FC 
 			;
 			
 Op_rel		: '>' | '<' | '==' | '<=' | '>=' | '!='

@@ -1,3 +1,9 @@
 d:
 cd \arquivos\Documentos-HD\Scripts\Eclipse\newLanguageComp
 java org.antlr.v4.Tool target\IsiLang.g4 -package antlr4.target -o ./src/antlr4
+
+
+2º opção
+java -cp antlr-4.7.1-complete.jar org.antlr.v4.Tool target\IsiLang.g4 -package antlr4.target  -o ./src/antlr4 
+
+Obs: Pode ser necessario restartar o console caso utilize pelo eclipse
