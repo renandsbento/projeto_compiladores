@@ -1,6 +1,7 @@
 public class IsiVariable extends Symbol {
+
     private int type;
-	private String value;
+    private String value;
 	
 	public IsiVariable(String name, int type, String value) {
 		super(name);
