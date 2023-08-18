@@ -3,7 +3,7 @@
  */
 grammar IsiLang;
 
-prog		: 'programa'	bloco	'fimprog;'
+prog		: 'programa'	bloco	'fimprog.'
 			; 
 
 bloco		: (cmd)+
