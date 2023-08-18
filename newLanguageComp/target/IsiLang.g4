@@ -48,7 +48,7 @@ SC			: ';'
 OP			: '+' | '-' | '*' | '/'
 			;
 			
-ATTR		: '='
+ATTR			: ':='
 			;
 			
 VG			: ','
@@ -69,19 +69,19 @@ Num			: [0-9] + ( '.' [0-9]+ )?
 WS			: (' ' | '\n' | '\r' | '\t') -> skip
 			;
 
-TEXTO		: ([0-9] | [a-z] | [A-Z])+
+TEXTO			: ([0-9] | [a-z] | [A-Z])+
 			;
 		
-cmdIf		: 'if' AP termo Op_rel termo FP AC bloco FC ('else' AC bloco FC )?
+cmdIf			: 'if' AP termo Op_rel termo FP AC bloco FC ('else' AC bloco FC )?
 			;
 			
-cmdFor		: 'for' AP termo P termo P termo FP AC bloco FC 
+cmdFor			: 'for' AP termo P termo P termo FP AC bloco FC 
 			;
 
-cmdWhile	: 'while' AP termo FP AC bloco FC 
+cmdWhile		: 'while' AP termo FP AC bloco FC 
 			;
 			
-Op_rel		: '>' | '<' | '==' | '<=' | '>=' | '!='
+Op_rel			: '>' | '<' | '==' | '<=' | '>=' | '!='
 			;
 			
 			
