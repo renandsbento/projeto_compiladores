@@ -18,7 +18,7 @@ programa
 	
 
 	for (a := 1; a < b; a := a + 1) {
-        escreva(i);
+        escreva(a);
     }
     
 	
