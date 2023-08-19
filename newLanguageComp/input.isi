@@ -6,7 +6,7 @@ programa
 	escreva(a);
 	escreva(b);
 	escreva(c);
-	
+    
 	if(a < b){
 		leia(a);
 		escreva(a);
@@ -15,5 +15,16 @@ programa
 		leia(b);
 		escreva(b);
 	}
+	
 
+	for (a := 1; a < b; a := a + 1) {
+        escreva(i);
+    }
+    
+	
+    while (b > 0) {
+        escreva(b);
+        b := b - 1;
+    }
+    
 fimprog;

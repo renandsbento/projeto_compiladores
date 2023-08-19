@@ -9,7 +9,7 @@ prog		: 'programa'	bloco	'fimprog.'
 bloco		: (cmd)+
 			;
 
-cmd			: cmdleitura | cmdescrita | cmdattrib | cmdIf | cmddeclare
+cmd			: cmdleitura | cmdescrita | cmdattrib | cmdIf | cmddeclare | cmdFor | cmdWhile
 			;
 
 cmddeclare	: 'declare' ID ( VG ID )* P {System.out.println("reconheci declare");}
@@ -23,6 +23,16 @@ cmdescrita	: 'escreva' AP ID FP P
 			
 cmdattrib	: ID ATTR expr P
 			;
+
+cmdentrada	: ID ATTR Num 
+			;
+			
+cmdsaida	: ID ATTR ID OP Num
+			;
+
+condicao	: expr Op_rel expr
+			;
+
 			
 expr		: termo ( OP termo )*
 			;
@@ -75,10 +85,10 @@ TEXTO			: ([0-9] | [a-z] | [A-Z])+
 cmdIf			: 'if' AP termo Op_rel termo FP AC bloco FC ('else' AC bloco FC )?
 			;
 			
-cmdFor			: 'for' AP termo P termo P termo FP AC bloco FC 
-			;
+cmdFor		: 'for' AP cmdentrada SC condicao SC cmdsaida FP AC bloco FC
+			; 
 
-cmdWhile		: 'while' AP termo FP AC bloco FC 
+cmdWhile	: 'while' AP condicao FP AC bloco FC 
 			;
 			
 Op_rel			: '>' | '<' | '==' | '<=' | '>=' | '!='
