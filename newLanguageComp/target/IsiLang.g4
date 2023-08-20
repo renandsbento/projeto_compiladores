@@ -23,7 +23,7 @@ grammar IsiLang;
 	private String varValue;
 	private String readId;
 	private String writeId;
-	private ArrayList<AbstractCommand> mainThread;
+	private ArrayList<AbstractCommand> curThread;
 }
 
 public void verificaID(String id) {
