@@ -33,16 +33,16 @@ public void verificaID(String id) {
 	}
 }
 
-prog		: 'programa'	bloco	'fimprog;'
+prog		: 'programa'	bloco	'fimprog.'
 			; 
 
 bloco		: (cmd)+
 			;
 
-cmd			: cmdleitura | cmdescrita | cmdattrib | cmdIf | cmddeclare
+cmd			: cmdleitura | cmdescrita | cmdattrib | cmdIf | cmddeclare | cmdFor | cmdWhile
 			;
 
-cmddeclare	: 'declare' ID ( VG ID )* SC {System.out.println("reconheci declare");}
+cmddeclare	: 'declare' ID ( VG ID )* P {System.out.println("reconheci declare");}
 			;
 
 cmdleitura	: 'leia' AP 
@@ -62,8 +62,18 @@ cmdescrita	: 'escreva'
 				}
 			;
 			
-cmdattrib	: ID ATTR expr SC
+cmdattrib	: ID ATTR expr P
 			;
+
+cmdentrada	: ID ATTR Num 
+			;
+			
+cmdsaida	: ID ATTR ID OP Num
+			;
+
+condicao	: expr Op_rel expr
+			;
+
 			
 expr		: termo ( OP termo )*
 			;
@@ -89,7 +99,7 @@ SC			: ';'
 OP			: '+' | '-' | '*' | '/'
 			;
 			
-ATTR		: '='
+ATTR			: ':='
 			;
 			
 VG			: ','
@@ -110,19 +120,19 @@ Num			: [0-9] + ( '.' [0-9]+ )?
 WS			: (' ' | '\n' | '\r' | '\t') -> skip
 			;
 
-TEXTO		: ([0-9] | [a-z] | [A-Z])+
+TEXTO			: ([0-9] | [a-z] | [A-Z])+
 			;
 		
-cmdIf		: 'if' AP termo Op_rel termo FP AC bloco FC ('else' AC bloco FC )?
+cmdIf			: 'if' AP termo Op_rel termo FP AC bloco FC ('else' AC bloco FC )?
 			;
 			
-cmdFor		: 'for' AP termo SC termo SC termo FP AC bloco FC 
-			;
+cmdFor		: 'for' AP cmdentrada SC condicao SC cmdsaida FP AC bloco FC
+			; 
 
-cmdWhile	: 'while' AP termo FP AC bloco FC 
+cmdWhile	: 'while' AP condicao FP AC bloco FC 
 			;
 			
-Op_rel		: '>' | '<' | '==' | '<=' | '>=' | '!='
+Op_rel			: '>' | '<' | '==' | '<=' | '>=' | '!='
 			;
 			
 			
