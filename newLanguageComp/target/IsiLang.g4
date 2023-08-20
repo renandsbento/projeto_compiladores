@@ -83,7 +83,10 @@ prog		: 'programa'	bloco	'fimprog.'
            } 
 			; 
 
-bloco		: (cmd)+
+bloco		: { curThread = new ArrayList<AbstractCommand>(); 
+	        	stack.push(curThread);  
+          	}
+			(cmd)+
 			;
 
 tipo       : 'numero' { _tipo = IsiVariable.NUMBER;  }
@@ -93,14 +96,40 @@ tipo       : 'numero' { _tipo = IsiVariable.NUMBER;  }
 cmd			: cmdleitura | cmdescrita | cmdattrib | cmdIf | cmddeclare | cmdFor | cmdWhile
 			;
 
-cmddeclare	: 'declare' ID ( VG ID )* P {System.out.println("reconheci declare");}
+cmddeclare	: 'declare' ID ( VG ID )* P 
+			{System.out.println("reconheci declare");
+				tipo ID  {
+						_varName = _input.LT(-1).getText();
+						_varValue = null;
+						symbol = new IsiVariable(_varName, _tipo, _varValue);
+						if (!symbolTable.exists(_varName)){
+							symbolTable.add(symbol);	
+						}
+						else{
+							throw new IsiSemanticException("Simbolo "+_varName+" já foi declarado anteriormente");
+						}
+				}  VIR 
+              	 ID {
+	                  _varName = _input.LT(-1).getText();
+	                  _varValue = null;
+	                  symbol = new IsiVariable(_varName, _tipo, _varValue);
+	                  if (!symbolTable.exists(_varName)){
+	                     symbolTable.add(symbol);	
+	                  }
+	                  else{
+	                  	 throw new IsiSemanticException("Simbolo "+_varName+" já foi declarado anteriormente");
+	                  }
+                    }
+              )* 
+               P
+			}
 			;
 
 cmdleitura	: 'leia' AP 
 					ID 	{ verificaID(_input.LT(-1).getText());
                      	  _readID = _input.LT(-1).getText();
                         } 
-					FP SC
+					FP P
 					{
 						IsiVariable var = (IsiVariable)symbolTable.get(_readID);
               			CommandLeitura cmd = new CommandLeitura(_readID, var);
@@ -114,7 +143,7 @@ cmdescrita	: 'escreva'
 	                  _writeID = _input.LT(-1).getText();
                      } 
                  FP 
-                 SC
+                 P
                {
                	  CommandEscrita cmd = new CommandEscrita(_writeID);
                	  stack.peek().add(cmd);
@@ -128,7 +157,7 @@ cmdattrib	: ID ATTR expr P
 				} 
                	ATTR { _exprContent = ""; } 
                	expr 
-               	SC
+               	P
                	{
                     if (_exprContent =="")
                     {
@@ -155,7 +184,13 @@ condicao	: expr Op_rel expr
 expr		: termo ( OP termo )*
 			;
 			
-termo		: ID | Num | TEXTO
+termo		: ID { verificaID(_input.LT(-1).getText());
+	               _exprContent += _input.LT(-1).getText();
+                 }
+			(Num | TEXTO)
+			{
+              	_exprContent += _input.LT(-1).getText();
+            }
 			;
 			
 AP			: '('
@@ -211,14 +246,14 @@ cmdWhile	: 'while' AP condicao FP AC bloco FC
                     OPREL { _exprRepetition += _input.LT(-1).getText(); }
                     (ID | NUMBER) {_exprRepetition += _input.LT(-1).getText(); }
                     FP
-                    ACH
+                    AC
                     {
                       curThread = new ArrayList<AbstractCommand>(); 
                       stack.push(curThread);
                     }
                     (cmd)+ 
                     
-                    FCH 
+                    FC 
                     {
                        listaTrue = stack.pop();	
                        CommandRepeticao cmd = new CommandRepeticao(_exprRepetition, listaTrue);

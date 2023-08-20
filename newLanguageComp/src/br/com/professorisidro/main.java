@@ -21,6 +21,12 @@ public class main {
 			System.out.println("Realizando avaliacao!");
 			parser.prog();
 			System.out.println("Avaliacao realizada!");
+			parser.exibeComandos();                      
+			parser.generateCode();
+            parser.Warnings();
+		}
+		catch(IsiSemanticException ex) {
+			System.err.println("Semantic error - "+ex.getMessage());
 		}
 		catch(Exception ex) {
 			System.err.println("Erro " + ex.getMessage());
