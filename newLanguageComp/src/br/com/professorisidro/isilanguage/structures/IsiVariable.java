@@ -1,4 +1,6 @@
-public class IsiVariable extends Symbol {
+package br.com.professorisidro.isilanguage.structures
+
+public class IsiVariable extends IsiSymbol {
 
     private int type;
     private String value;

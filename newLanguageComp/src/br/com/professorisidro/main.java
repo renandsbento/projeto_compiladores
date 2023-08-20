@@ -1,4 +1,4 @@
-package br.com.professorisidro.isilanguage.main;
+package br.com.professorisidro.isilanguage;
 
 import antlr4.target.IsiLangLexer;
 import antlr4.target.IsiLangParser;

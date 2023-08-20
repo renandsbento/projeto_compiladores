@@ -1,8 +1,10 @@
-public class ReadCommand extends Command{
+package br.com.professorisidro.isilanguage
+
+public class CommandLeitura extends Command{
     private String id;
     private IsiVariable var;
 	
-    public ReadCommand (String id, IsiVariable var) {
+    public CommandLeitura (String id, IsiVariable var) {
 	    this.id = id;
 	    this.var = var;
     }
@@ -14,7 +16,7 @@ public class ReadCommand extends Command{
 
     @Override
     public String toString() {
-        return "ReadCommand [id=" + id + "]";
+        return "CommandLeitura [id=" + id + "]";
     }
 
     @Override

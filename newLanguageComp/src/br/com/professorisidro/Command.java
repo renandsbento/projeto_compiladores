@@ -1,3 +1,5 @@
+package br.com.professorisidro.isilanguage
+
 public abstract class Command {
 
     public abstract String generateCode();

@@ -1,4 +1,6 @@
-public class AssignamentCommand extends Command {
+package br.com.professorisidro.isilanguage
+
+public class CommandAtribuicao extends Command {
 
     private String id;
 	private String expr;
@@ -19,7 +21,7 @@ public class AssignamentCommand extends Command {
 
 	@Override
 	public String toString() {
-		return "AssignamentCommand [id=" + id + ", expr=" + expr + "]";
+		return "CommandAtribuicao [id=" + id + ", expr=" + expr + "]";
 	}
 
     @Override

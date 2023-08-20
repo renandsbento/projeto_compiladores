@@ -1,8 +1,10 @@
-public class WriteCommand extends Command {
+package br.com.professorisidro.isilanguage
+
+public class CommandEscrita extends Command {
 
     private String id;
 
-    public WriteCommand(String id) {
+    public CommandEscrita(String id) {
         this.id = id;
     }
 
@@ -23,6 +25,6 @@ public class WriteCommand extends Command {
 
     @Override
 	public String toString() {
-		return "WriteCommand [id=" + id + "]";
+		return "CommandEscrita [id=" + id + "]";
 	}
 }

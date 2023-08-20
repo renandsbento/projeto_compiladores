@@ -1,10 +1,12 @@
-public class DecisionCommand extends AbstractCommand {
+package br.com.professorisidro.isilanguage
+
+public class CommandDecisao extends AbstractCommand {
 
     private String condition;
     private ArrayList<AbstractCommand> listaTrue;
     private ArrayList<AbstractCommand> listaFalse;
 
-    public DecisionCommand(String condition, ArrayList<AbstractCommand> lt, ArrayList<AbstractCommand> lf) {
+    public CommandDecisao(String condition, ArrayList<AbstractCommand> lt, ArrayList<AbstractCommand> lf) {
         this.condition = condition;
         this.listaTrue = lt;
         this.listaFalse = lf;
@@ -31,7 +33,7 @@ public class DecisionCommand extends AbstractCommand {
 
     @Override
 	public String toString() {
-		return "DecisionCommand [condition=" + condition + ", listaTrue=" + listaTrue + ", listaFalse=" + listaFalse
+		return "CommandDecisao [condition=" + condition + ", listaTrue=" + listaTrue + ", listaFalse=" + listaFalse
 				+ "]";
 	}
 

@@ -1,9 +1,11 @@
-public abstract class Symbol {
+package br.com.professorisidro.isilanguage.structures
+
+public abstract class IsiSymbol {
     protected String name;
 
     public abstract String generateJavaCode();
 
-    public Symbol(String name) {
+    public IsiSymbol(String name) {
         this.name = name;
     }
 
@@ -17,7 +19,7 @@ public abstract class Symbol {
 
     @Override
     public String toString() {
-        return "Symbol [name=" + name + "]";
+        return "IsiSymbol [name=" + name + "]";
     }
 
 }
