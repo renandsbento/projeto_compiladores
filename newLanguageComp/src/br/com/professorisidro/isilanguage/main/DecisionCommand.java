@@ -29,4 +29,21 @@ public class DecisionCommand extends AbstractCommand {
             return str.toString();
     }
 
+    @Override
+	public String toString() {
+		return "DecisionCommand [condition=" + condition + ", listaTrue=" + listaTrue + ", listaFalse=" + listaFalse
+				+ "]";
+	}
+
+    @Override
+        public String getId()
+        {
+            return "";
+        }
+        @Override
+        public String getCommand()
+        {
+            return this.getClass().getName();
+        }
+
 }
