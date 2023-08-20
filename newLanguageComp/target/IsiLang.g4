@@ -9,8 +9,18 @@ grammar IsiLang;
 	import newLanguageComp.src.br.com.professorisidro.isilanguage.structures.SymbolTable.java
 	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.ReadCommand.java
 	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.WriteCommand.java
-	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.ReadCommand.java
-	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.ReadCommand.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.Command.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.AssignamentCommand.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.Program.java
+}
+
+@members{
+	private Program program;
+	private Symbol symbol;
+	private int tipo;
+	private String varName;
+	private String varValue;
+	private ArrayList<AbstractCommand> mainThread;
 }
 
 prog		: 'programa'	bloco	'fimprog;'
