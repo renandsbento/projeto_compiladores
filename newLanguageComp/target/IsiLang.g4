@@ -17,10 +17,21 @@ grammar IsiLang;
 @members{
 	private Program program;
 	private Symbol symbol;
+	private SymbolTable symbolTable;
 	private int tipo;
 	private String varName;
 	private String varValue;
+	private String readId;
 	private ArrayList<AbstractCommand> mainThread;
+}
+
+varName = 
+
+public void verificaID(String id) {
+	if(SymbolTable.exists(id)) {
+		//todo exception
+		throw new exception
+	}
 }
 
 prog		: 'programa'	bloco	'fimprog;'
@@ -35,7 +46,9 @@ cmd			: cmdleitura | cmdescrita | cmdattrib | cmdIf | cmddeclare
 cmddeclare	: 'declare' ID ( VG ID )* SC {System.out.println("reconheci declare");}
 			;
 
-cmdleitura	: 'leia' AP ID FP SC
+cmdleitura	: 'leia' AP 
+					ID 	{ verificaID(_input.LT(-1).getText())}
+					FP SC
 			;
 
 cmdescrita	: 'escreva' AP ID FP SC
