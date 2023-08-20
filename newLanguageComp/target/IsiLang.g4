@@ -3,6 +3,16 @@
  */
 grammar IsiLang;
 
+@header{
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.structures.IsiVariable.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.structures.Symbol.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.structures.SymbolTable.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.ReadCommand.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.WriteCommand.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.ReadCommand.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.ReadCommand.java
+}
+
 prog		: 'programa'	bloco	'fimprog;'
 			; 
 
