@@ -22,10 +22,9 @@ grammar IsiLang;
 	private String varName;
 	private String varValue;
 	private String readId;
+	private String writeId;
 	private ArrayList<AbstractCommand> mainThread;
 }
-
-varName = 
 
 public void verificaID(String id) {
 	if(SymbolTable.exists(id)) {
@@ -49,9 +48,18 @@ cmddeclare	: 'declare' ID ( VG ID )* SC {System.out.println("reconheci declare")
 cmdleitura	: 'leia' AP 
 					ID 	{ verificaID(_input.LT(-1).getText())}
 					FP SC
+					{
+						ReadCommand cmd = new ReadCommand(readId);
+						//
+					}
 			;
 
-cmdescrita	: 'escreva' AP ID FP SC
+cmdescrita	: 'escreva' 
+				AP 
+				ID { verificaID(_input.LT(-1).getText()); } FP SC
+				{ WriteCommand cmd = new WriteCommand();
+					writeId = _input.LT(-1).getText();
+				}
 			;
 			
 cmdattrib	: ID ATTR expr SC
