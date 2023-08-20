@@ -15,29 +15,80 @@ grammar IsiLang;
 }
 
 @members{
-	private Program program;
-	private Symbol symbol;
-	private SymbolTable symbolTable;
+	private IsiProgram program = new IsiProgram();
+	private IsiSymbol symbol;
+	private IsiSymbolTable symbolTable;
 	private int tipo;
 	private String varName;
 	private String varValue;
-	private String readId;
-	private String writeId;
+	private String _readID;
+	private String _writeID;
+	private String _exprID;
+	private String _exprContent;
+	private String _exprDecision;
+	private String _exprRepetition;
 	private ArrayList<AbstractCommand> curThread;
+	private Stack<ArrayList<AbstractCommand>> stack = new Stack<ArrayList<AbstractCommand>>();
+	private ArrayList<String> VariaveisSemUso;
+	private ArrayList<AbstractCommand> listaTrue;
+	private ArrayList<AbstractCommand> listaFalse;
 }
 
-public void verificaID(String id) {
-	if(SymbolTable.exists(id)) {
-		//todo exception
-		throw new exception
+public void verificaID(String id){
+	if (!symbolTable.exists(id)){
+		throw new IsiSemanticException("Simbolo "+id+" não declarado");
 	}
 }
 
+public StringBuilder exibeVariaveisSemUsoWNG() {
+    StringBuilder varWNG = new StringBuilder();
+
+    varWNG.append("As seguintes variáveis foram declaradas e não foram utilizadas no programa: ");
+    ArrayList<String> var = program.getVarSemUso();
+
+    if(var.isEmpty())return null;
+
+    int size = var.size();
+    if(size ==1)varWNG.append(var.get(0));
+
+    else if(size>1){
+        int i=0;
+        for(;i<=size-2;i++){
+            String w = var.get(i);
+            varWNG.append(w);
+            varWNG.append(",");
+        }
+        varWNG.append(var.get(size-1));
+    }
+
+    return varWNG;
+}
+
+public void Warnings() {
+        StringBuilder warn = new StringBuilder();
+        StringBuilder var = exibeVariaveisSemUsoWNG();
+        if(var==null)return;
+        warn.append("WARNINGS: \n");
+        warn.append(exibeVariaveisSemUsoWNG());
+        System.out.println(warn);
+}
+	
+	public void generateCode(){
+		program.generateTarget();
+	}
+
 prog		: 'programa'	bloco	'fimprog.'
+			{  program.setVarTable(symbolTable);
+           	  program.setComandos(stack.pop());
+           } 
 			; 
 
 bloco		: (cmd)+
 			;
+
+tipo       : 'numero' { _tipo = IsiVariable.NUMBER;  }
+           | 'texto'  { _tipo = IsiVariable.TEXT;  }
+           ;
 
 cmd			: cmdleitura | cmdescrita | cmdattrib | cmdIf | cmddeclare | cmdFor | cmdWhile
 			;
@@ -46,23 +97,49 @@ cmddeclare	: 'declare' ID ( VG ID )* P {System.out.println("reconheci declare");
 			;
 
 cmdleitura	: 'leia' AP 
-					ID 	{ verificaID(_input.LT(-1).getText())}
+					ID 	{ verificaID(_input.LT(-1).getText());
+                     	  _readID = _input.LT(-1).getText();
+                        } 
 					FP SC
 					{
-						ReadCommand cmd = new ReadCommand(readId);
-						//
+						IsiVariable var = (IsiVariable)symbolTable.get(_readID);
+              			CommandLeitura cmd = new CommandLeitura(_readID, var);
+              			stack.peek().add(cmd);
 					}
 			;
 
 cmdescrita	: 'escreva' 
 				AP 
-				ID { verificaID(_input.LT(-1).getText()); } FP SC
-				{ WriteCommand cmd = new WriteCommand();
-					writeId = _input.LT(-1).getText();
-				}
+                 ID { verificaID(_input.LT(-1).getText());
+	                  _writeID = _input.LT(-1).getText();
+                     } 
+                 FP 
+                 SC
+               {
+               	  CommandEscrita cmd = new CommandEscrita(_writeID);
+               	  stack.peek().add(cmd);
+               }
 			;
 			
 cmdattrib	: ID ATTR expr P
+				{
+                 verificaID(_input.LT(-1).getText());
+                    _exprID = _input.LT(-1).getText();   
+				} 
+               	ATTR { _exprContent = ""; } 
+               	expr 
+               	SC
+               	{
+                    if (_exprContent =="")
+                    {
+                       throw new IsiSemanticException("Variável "+_exprID+" não foi atribuída");
+                    }
+                    else{
+                           CommandAtribuicao cmd = new CommandAtribuicao(_exprID, _exprContent);
+                           stack.peek().add(cmd);
+                    }
+               	
+               }
 			;
 
 cmdentrada	: ID ATTR Num 
@@ -130,6 +207,23 @@ cmdFor		: 'for' AP cmdentrada SC condicao SC cmdsaida FP AC bloco FC
 			; 
 
 cmdWhile	: 'while' AP condicao FP AC bloco FC 
+                    ID{_exprRepetition = _input.LT(-1).getText(); }
+                    OPREL { _exprRepetition += _input.LT(-1).getText(); }
+                    (ID | NUMBER) {_exprRepetition += _input.LT(-1).getText(); }
+                    FP
+                    ACH
+                    {
+                      curThread = new ArrayList<AbstractCommand>(); 
+                      stack.push(curThread);
+                    }
+                    (cmd)+ 
+                    
+                    FCH 
+                    {
+                       listaTrue = stack.pop();	
+                       CommandRepeticao cmd = new CommandRepeticao(_exprRepetition, listaTrue);
+                   		stack.peek().add(cmd);
+                    } 
 			;
 			
 Op_rel			: '>' | '<' | '==' | '<=' | '>=' | '!='
