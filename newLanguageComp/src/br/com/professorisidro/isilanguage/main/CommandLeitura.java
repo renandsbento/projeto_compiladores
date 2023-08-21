@@ -11,7 +11,7 @@ public class CommandLeitura extends Command{
 
     @Override
     public String generateJavaCode() {
-        //todo
+        return id +"= _key." + (var.getType()==IsiVariable.NUMBER? "nextDouble();": "nextLine();");
     }
 
     @Override
