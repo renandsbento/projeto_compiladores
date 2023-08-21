@@ -39,6 +39,12 @@ grammar IsiLang;
 		}
 	}
 
+	public void exibeComandos(){
+		for (AbstractCommand c: program.getComandos()){
+			System.out.println(c);
+		}
+	}
+
 	public StringBuilder exibeVariaveisSemUsoWNG() {
 		StringBuilder varWNG = new StringBuilder();
 

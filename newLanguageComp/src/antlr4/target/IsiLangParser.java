@@ -752,7 +752,7 @@ public class IsiLangParser extends Parser {
 	}
 
 	
-public StringBuilder exibeVariaveisSemUsoWNG() {
+	public StringBuilder exibeVariaveisSemUsoWNG() {
     StringBuilder varWNG = new StringBuilder();
 
     varWNG.append("As seguintes variáveis foram declaradas e não foram utilizadas no programa: ");
