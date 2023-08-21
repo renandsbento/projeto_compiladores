@@ -1,4 +1,4 @@
-package br.com.professorisidro.isilanguage
+package br.com.professorisidro.isilanguage.main
 
 public class CommandLeitura extends Command{
     private String id;

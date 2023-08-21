@@ -1,4 +1,4 @@
-package br.com.professorisidro.isilanguage
+package br.com.professorisidro.isilanguage.main
 
 public abstract class Command {
 
