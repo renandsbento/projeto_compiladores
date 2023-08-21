@@ -5,13 +5,15 @@ grammar IsiLang;
 
 @header{
 	import newLanguageComp.src.br.com.professorisidro.isilanguage.structures.IsiVariable.java
-	import newLanguageComp.src.br.com.professorisidro.isilanguage.structures.Symbol.java
-	import newLanguageComp.src.br.com.professorisidro.isilanguage.structures.SymbolTable.java
-	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.ReadCommand.java
-	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.WriteCommand.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.structures.IsiSymbol.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.structures.IsiSymbolTable.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.CommandLeitura.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.CommandEscrita.java
 	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.Command.java
-	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.AssignamentCommand.java
-	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.Program.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.CommandAtribuicao.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.CommandRepeticao.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.CommandDecisao.java
+	import newLanguageComp.src.br.com.professorisidro.isilanguage.main.IsiProgram.java
 }
 
 @members{
