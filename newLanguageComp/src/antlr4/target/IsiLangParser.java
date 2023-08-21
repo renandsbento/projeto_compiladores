@@ -40,6 +40,26 @@ public class IsiLangParser extends Parser {
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
+
+	private int _tipo;
+		private String _varName;
+		private String _varValue;
+		private IsiSymbolTable symbolTable = new IsiSymbolTable();
+		private IsiSymbol symbol;
+		private IsiProgram program = new IsiProgram();
+		private ArrayList<AbstractCommand> curThread;
+		private Stack<ArrayList<AbstractCommand>> stack = new Stack<ArrayList<AbstractCommand>>();
+		private String _readID;
+		private String _writeID;
+		private String _exprID;
+		private String _exprContent;
+		private String _exprDecision;
+	    private String _exprRepetition;
+	    private ArrayList<String> VariaveisSemUso;
+		private ArrayList<AbstractCommand> listaTrue;
+		private ArrayList<AbstractCommand> listaFalse;
+
+
 	/**
 	 * @deprecated Use {@link #VOCABULARY} instead.
 	 */
@@ -717,5 +737,55 @@ public class IsiLangParser extends Parser {
 		for (int i = 0; i < _ATN.getNumberOfDecisions(); i++) {
 			_decisionToDFA[i] = new DFA(_ATN.getDecisionState(i), i);
 		}
+	}
+
+	public void verificaID(String id){
+		if (!symbolTable.exists(id)){
+			throw new IsiSemanticException("Simbolo "+id+" não declarado");
+		}
+	}
+	
+	public void exibeComandos(){
+		for (AbstractCommand c: program.getComandos()){
+			System.out.println(c);
+		}
+	}
+
+	
+public StringBuilder exibeVariaveisSemUsoWNG() {
+    StringBuilder varWNG = new StringBuilder();
+
+    varWNG.append("As seguintes variáveis foram declaradas e não foram utilizadas no programa: ");
+    ArrayList<String> var = program.getVarSemUso();
+
+    if(var.isEmpty())return null;
+
+    int size = var.size();
+    if(size ==1)varWNG.append(var.get(0));
+
+    else if(size>1){
+        int i=0;
+        for(;i<=size-2;i++){
+            String w = var.get(i);
+            varWNG.append(w);
+            varWNG.append(",");
+        }
+        varWNG.append(var.get(size-1));
+    }
+
+    return varWNG;
+	}
+
+	public void Warnings() {
+        StringBuilder warn = new StringBuilder();
+        StringBuilder var = exibeVariaveisSemUsoWNG();
+        if(var==null)return;
+        warn.append("WARNINGS: \n");
+        warn.append(exibeVariaveisSemUsoWNG());
+        System.out.println(warn);
+	}
+	
+	public void generateCode(){
+		program.generateTarget();
 	}
 }

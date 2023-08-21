@@ -153,7 +153,7 @@ cmdescrita	: 'escreva'
 cmdattrib	: ID ATTR expr P
 				{
                  verificaID(_input.LT(-1).getText());
-                    _exprID = _input.LT(-1).getText();   
+                _exprID = _input.LT(-1).getText();   
 				} 
                	ATTR { _exprContent = ""; } 
                	expr 
