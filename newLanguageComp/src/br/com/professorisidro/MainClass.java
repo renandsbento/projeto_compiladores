@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 // Responsável por criar a interação com o usuário instanciando o parser e apontando para o arquivo fonte
-public class main {
+public class MainClass{
 
 	public static void main(String[] args) {
 		try {

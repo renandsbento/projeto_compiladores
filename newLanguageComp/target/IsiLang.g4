@@ -32,39 +32,38 @@ grammar IsiLang;
 	private ArrayList<String> VariaveisSemUso;
 	private ArrayList<AbstractCommand> listaTrue;
 	private ArrayList<AbstractCommand> listaFalse;
-}
 
-public void verificaID(String id){
-	if (!symbolTable.exists(id)){
-		throw new IsiSemanticException("Simbolo "+id+" não declarado");
+	public void verificaID(String id){
+		if (!symbolTable.exists(id)){
+			throw new IsiSemanticException("Simbolo "+id+" não declarado");
+		}
 	}
-}
 
-public StringBuilder exibeVariaveisSemUsoWNG() {
-    StringBuilder varWNG = new StringBuilder();
+	public StringBuilder exibeVariaveisSemUsoWNG() {
+		StringBuilder varWNG = new StringBuilder();
 
-    varWNG.append("As seguintes variáveis foram declaradas e não foram utilizadas no programa: ");
-    ArrayList<String> var = program.getVarSemUso();
+		varWNG.append("As seguintes variáveis foram declaradas e não foram utilizadas no programa: ");
+		ArrayList<String> var = program.getVarSemUso();
 
-    if(var.isEmpty())return null;
+		if(var.isEmpty())return null;
 
-    int size = var.size();
-    if(size ==1)varWNG.append(var.get(0));
+		int size = var.size();
+		if(size ==1)varWNG.append(var.get(0));
 
-    else if(size>1){
-        int i=0;
-        for(;i<=size-2;i++){
-            String w = var.get(i);
-            varWNG.append(w);
-            varWNG.append(",");
-        }
-        varWNG.append(var.get(size-1));
-    }
+		else if(size>1){
+			int i=0;
+			for(;i<=size-2;i++){
+				String w = var.get(i);
+				varWNG.append(w);
+				varWNG.append(",");
+			}
+			varWNG.append(var.get(size-1));
+		}
 
-    return varWNG;
-}
+		return varWNG;
+	}
 
-public void Warnings() {
+	public void Warnings() {
         StringBuilder warn = new StringBuilder();
         StringBuilder var = exibeVariaveisSemUsoWNG();
         if(var==null)return;
@@ -76,11 +75,12 @@ public void Warnings() {
 	public void generateCode(){
 		program.generateTarget();
 	}
+}
 
 prog		: 'programa'	bloco	'fimprog.'
 			{  program.setVarTable(symbolTable);
            	  program.setComandos(stack.pop());
-           } 
+           	} 
 			; 
 
 bloco		: { curThread = new ArrayList<AbstractCommand>(); 
