@@ -108,7 +108,7 @@ cmddeclare	: 'declare' ID ( VG ID )* P
 						else{
 							throw new IsiSemanticException("Simbolo "+_varName+" já foi declarado anteriormente");
 						}
-				}  VIR 
+				}  VG 
               	 ID {
 	                  _varName = _input.LT(-1).getText();
 	                  _varValue = null;
@@ -243,8 +243,8 @@ cmdFor		: 'for' AP cmdentrada SC condicao SC cmdsaida FP AC bloco FC
 
 cmdWhile	: 'while' AP condicao FP AC bloco FC 
                     ID{_exprRepetition = _input.LT(-1).getText(); }
-                    OPREL { _exprRepetition += _input.LT(-1).getText(); }
-                    (ID | NUMBER) {_exprRepetition += _input.LT(-1).getText(); }
+                    Op_rel { _exprRepetition += _input.LT(-1).getText(); }
+                    (ID | Num) {_exprRepetition += _input.LT(-1).getText(); }
                     FP
                     AC
                     {
